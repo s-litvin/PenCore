@@ -15,9 +15,9 @@
 		AppParams::$controller_path = ROOTH_PATH . 'app/controllers/' . AppParams::$controller . AppParams::$controller_postfix;
 
 		if (!is_file(AppParams::$controller_path)) {
-			AppParams::$action = 'view';
-			AppParams::$controller_path = FT::prepPath('app/controllers/index' . AppParams::$controller_postfix);
-			AppParams::$controller = 'index';
+			AppParams::$action = 'nopage';
+			AppParams::$controller_path = FT::prepPath('app/controllers/redirect' . AppParams::$controller_postfix);
+			AppParams::$controller = 'redirect';
 		}
 
 		try {
