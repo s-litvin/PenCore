@@ -1,6 +1,6 @@
 <?php
-define('ROOTH_PATH', dirname(__FILE__));
-define('SITE_URL', $_SERVER['HTTP_HOST']);
+define('ROOTH_PATH', dirname(__FILE__) . '/');
+define('SITE_URL', 'http://' . $_SERVER['HTTP_HOST'] . '/');
 define('CORE_PATH', '../pencore/');
 
 if ($_SERVER['HTTP_HOST'] == 'chat.loc') {
