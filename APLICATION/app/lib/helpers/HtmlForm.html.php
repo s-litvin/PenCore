@@ -24,7 +24,7 @@
 									</div>
 								</div>
 							</form>
-							<a href="#" class="button ">Вход</a>
+							<a href="#" class="button">Вход</a>
 						</div>
 					</div>
 					<div class="large-6 columns auth-plain">
@@ -119,4 +119,20 @@
 					</div>
 				</div>';
 	}
+
+	public static function email()
+	{
+		return '<form class="round-inputs">
+						<div class="row">
+							<div class="large-12 columns">
+								<input type="text" name="name" placeholder="Name"/>
+							</div>
+							<div class="large-12 columns">
+								<textarea name="text" placeholder="Текст отзыва не более 5000 символов! При необходимости размещайте два отзыва"></textarea>
+							</div>
+						</div>
+						<input type="submit" class="button expand radius" value="Отправить"/>
+					</form>';
+	}
+
 }
