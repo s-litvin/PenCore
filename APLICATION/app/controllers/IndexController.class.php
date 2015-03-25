@@ -2,9 +2,11 @@
 {
 	public function view()
 	{
-		$users = DB::query('SELECT * FROM users');
 
-		$this->setView('index/index', array('users' => $users));
-		$this->setTemplate('main', array('p' => 'Template #2'));
+		$log = DB::query('SELECT * FROM browsing_log LIMIT 20');
+
+		$this->setView('index/index', array('log' => $log));
+		$this->setTemplate('main');
 	}
+
 }

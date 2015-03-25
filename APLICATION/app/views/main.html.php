@@ -6,6 +6,7 @@
 	<title></title>
 	<link rel="stylesheet" href="<?php echo FT::prepUrl('public/css/normalize.css');?>">
 	<link rel="stylesheet" href="<?php echo FT::prepUrl('public/css/foundation.min.css');?>">
+	<link rel="stylesheet" href="<?php echo FT::prepUrl('public/css/foundation-icons.css');?>">
 	<link rel="stylesheet" href="<?php echo FT::prepUrl('public/css/app.css');?>">
 	<script src="<?php echo FT::prepUrl('public/js/vendor/modernizr.js');?>"></script>
 </head>
@@ -17,11 +18,13 @@
 	{@view@}
 </div>
 
+<?php echo HtmlModal::placeModal();?>
+
 <script src="<?php echo FT::prepUrl('public/js/vendor/jquery.js');?>"></script>
 <script src="<?php echo FT::prepUrl('public/js/foundation.min.js');?>"></script>
 <script src="<?php echo FT::prepUrl('public/js/app.js');?>"></script>
 <script>
-	$(document).foundation();
+	$(document). foundation();
 </script>
 </body>
 </html>

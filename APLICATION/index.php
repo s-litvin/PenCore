@@ -2,7 +2,7 @@
 require_once('settings.php');
 
 try {
-	AppRouter::route($_SERVER['REQUEST_URI']);
+	AppRouter::route($_REQUEST['url']);
 } catch (Exception $e){
 	echo 'Error: ',  $e->getMessage(), "\n";
 }
