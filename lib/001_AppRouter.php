@@ -26,8 +26,11 @@
 		try {
 			// include libs
 			include_once(AppParams::$controller_path);
-			// new object
+			// new object & check for method exists
 			$controller_object = new AppParams::$controller();
+			if (!method_exists($controller_object, AppParams::$action)) {
+				AppParams::$action = 'view';
+			}
 			$result = $controller_object->{AppParams::$action}($params);
 			ob_start();
 			AppDesigner::getHtml();
