@@ -4,7 +4,7 @@
 	{
 		include_once('007_Includer.class.php');
 		Includer::inc_dir(CORE_PATH . 'lib/');
-		// @todo include only needed libs
+		// @todo include only needed libs (отключать все и вести лог ошибок и автоматически создавать файл необходимых либ)
 		Includer::inc_dir(ROOTH_PATH . 'app/lib/helpers/');
 		Includer::inc_dir(ROOTH_PATH . 'app/lib/models/');
 

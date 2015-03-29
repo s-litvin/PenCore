@@ -9,4 +9,9 @@
 	{
 		return $_SESSION[$name] ? $_SESSION[$name] : false;
 	}
+
+	public static function remove($name)
+	{
+		unset($_SESSION[$name]);
+	}
 }

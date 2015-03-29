@@ -12,7 +12,7 @@
 		}
 	}
 
-	public static function query($str)
+	public static function query($str, $type = false)
 	{
 		$array = array();
 		self::getInstance();
@@ -21,6 +21,7 @@
 				while ($array[] = $result->fetch_assoc()) {
 				}
 				array_pop($array);
+				if (!$type) $array = $array[0];
 				$result->close();
 			} else $array = $result;
 		} else return false;
