@@ -28,4 +28,15 @@
 //		self::$connection->close();
 		return $array;
 	}
+
+	public static function insert($table, $rows)
+	{
+		if (!$table || !is_array($rows)) return false;
+		foreach($rows as $field => $value) {
+			$fields[] = $field;
+			$values[] = $value;
+		}
+		if (!$fields || !$values) return false;
+		return DB::query('INSERT INTO ' . $table . ' (' . implode(',', $fields) . ') VALUES ("' . implode('", "', $values) . '");');
+	}
 }
