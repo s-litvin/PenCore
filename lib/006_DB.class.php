@@ -17,9 +17,12 @@
 		$array = array();
 		self::getInstance();
 		if ($result = self::$connection->query($str)) {
-			while ($array[] = $result->fetch_assoc()) {}
-			array_pop($array);
-			$result->close();
+			if ($result !== true && $result !== false) {
+				while ($array[] = $result->fetch_assoc()) {
+				}
+				array_pop($array);
+				$result->close();
+			} else $array = $result;
 		}
 		self::$connection->close();
 		return $array;
