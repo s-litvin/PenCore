@@ -23,8 +23,8 @@
 				array_pop($array);
 				$result->close();
 			} else $array = $result;
-		}
-		self::$connection->close();
+		} else return false;
+//		self::$connection->close();
 		return $array;
 	}
 }

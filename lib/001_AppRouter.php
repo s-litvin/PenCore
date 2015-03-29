@@ -11,8 +11,8 @@
 		// controller/action/params
 //		preg_match('/^([^\\?]+)\\?(.+)/i', $path, $matches);
 		$path_array = explode('/', $path);
-		AppParams::$controller = $path_array[0] ? $path_array[0] : 'index';
-		AppParams::$action     = $path_array[1] ? $path_array[1] : 'view';
+		AppParams::$controller = $path_array[0] ? array_shift($path_array) : 'index';
+		AppParams::$action     = $path_array[0] ? array_shift($path_array) : 'view';
 		AppParams::$controller_path = ROOTH_PATH . 'app/controllers/' . AppParams::$controller . AppParams::$controller_postfix;
 
 		if (!is_file(AppParams::$controller_path)) {
@@ -21,7 +21,7 @@
 			AppParams::$controller = 'redirect';
 		}
 
-		$params = (isset($path_array[3])) ? $path_array[3] : false;
+		$params = $path_array; // остатки массива пойдут в качестве параметров
 
 		try {
 			// include libs
