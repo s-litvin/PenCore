@@ -12,7 +12,7 @@
 //		preg_match('/^([^\\?]+)\\?(.+)/i', $path, $matches);
 		$path_array = explode('/', $path);
 		AppParams::$controller = $path_array[0] ? array_shift($path_array) : 'index';
-		AppParams::$action     = $path_array[0] ? array_shift($path_array) : 'view';
+		AppParams::$action     = ($path_array[0] && !preg_match('/\..*$/', $path_array[0])) ? array_shift($path_array) : 'view';
 		AppParams::$controller_path = ROOTH_PATH . 'app/controllers/' . AppParams::$controller . AppParams::$controller_postfix;
 
 		if (!is_file(AppParams::$controller_path)) {
