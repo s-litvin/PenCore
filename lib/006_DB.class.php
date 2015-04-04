@@ -15,7 +15,7 @@
 	public static function query($str, $type = null, $cache = false)
 	{
 		$array = array();
-		if ($cache && file_exists(DB_CACHE_PATH . md5($str) . '.php')) {
+		if ($cache && file_exists(DB_CACHE_PATH . md5($str) . '.php') && GLOBAL_CACHING) {
 			return unserialize(file_get_contents(DB_CACHE_PATH . md5($str) . '.php'));
 		} else {
 			self::getInstance();
@@ -31,7 +31,7 @@
 			} else $array = $result;
 		} else return false;
 //		self::$connection->close(); // to destruct
-		if ($cache) {
+		if ($cache && GLOBAL_CACHING) {
 			if (!file_exists(DB_CACHE_PATH)) {
 				// @todo RIGHTS!!!! HIDE IT!!!!
 			    mkdir(DB_CACHE_PATH, 0777, true);

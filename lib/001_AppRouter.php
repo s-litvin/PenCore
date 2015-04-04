@@ -28,6 +28,7 @@
 			include_once(AppParams::$controller_path);
 			// new object & check for method exists
 			$controller_object = new AppParams::$controller();
+			AppUser::$_user = new AppUser();
 			if (!method_exists($controller_object, AppParams::$action)) {
 				AppParams::$action = 'view';
 			}
@@ -40,5 +41,11 @@
 		} catch (Exception $e) {
 			throw $e;
 		}
+	}
+
+	public static function redirect($url = '')
+	{
+		header('Location:' . FT::prepUrl($url));
+		exit;
 	}
 }

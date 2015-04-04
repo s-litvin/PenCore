@@ -10,13 +10,23 @@
 		'Yandex' => 7
 	);
 
-	private $_info;
+	public static $_user;
+	public $_info;
 
 	public function __construct($id_user = null)
 	{
+		$this->_info['permissions'] = 1;
 	}
 
-	public function find($username_or_id = null)
+	public static function getInstance()
+	{
+		if (!self::$_user) {
+			static::$_user = new AppUser();
+		}
+		return static::$_user;
+	}
+
+	public function find_info($username_or_id = null)
 	{
 		if ($username_or_id) {
 			$field = is_numeric($username_or_id) ? 'id' : 'email';
@@ -30,11 +40,31 @@
 		return false;
 	}
 
-	public function login($user_name = null, $pass = null)
+	public function login($data)
 	{
-		if ($this->find($user_name)) {
+		if (isset($data['email']) && isset($data['pass'])) {
+			if ($this->find_info($data['email'])) {
+				if (Validate::_makePass($data['pass']) == $this->_info['pass']) return $this->_info;
+			}
 		}
 		return false;
+	}
+
+	public function logout()
+	{
+		$this->_info = $this->_info['permissions'] = 1;
+	}
+
+	public function registration($data)
+	{
+		// @todo validation
+
+		$data['pass'] = Validate::_makePass($data['pass']);
+
+		return DB::insert(self::TABLE, array('name' => $data['name'],
+											 'email' => $data['email'],
+											 'pass' => $data['pass'],
+											 'ip' => $ip));
 	}
 
 	private static $_unknow_browser = 6;
