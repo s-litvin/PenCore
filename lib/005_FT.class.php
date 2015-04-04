@@ -3,6 +3,7 @@
 	public static function prepUrl($str)
 	{
 		// @todo deep parse string
+		if (preg_match('/^http\:\/\//ui', $str)) return $str;
 		return SITE_URL . $str;
 	}
 
