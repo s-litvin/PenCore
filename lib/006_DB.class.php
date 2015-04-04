@@ -35,6 +35,7 @@
 			if (!file_exists(DB_CACHE_PATH)) {
 				// @todo RIGHTS!!!! HIDE IT!!!!
 			    mkdir(DB_CACHE_PATH, 0777, true);
+				file_put_contents(DB_CACHE_PATH . '.htaccess', 'deny from all');
 			}
 			file_put_contents(DB_CACHE_PATH . md5($str) . '.php', serialize($array));
 		}
