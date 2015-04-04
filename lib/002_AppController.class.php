@@ -3,6 +3,10 @@
 	protected $_default_action = 'view';
 	protected $_view_params = array();
 
+	public function __construct()
+	{
+
+	}
 
 	public static function setTemplate($template, $params = array())
 	{

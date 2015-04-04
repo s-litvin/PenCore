@@ -1,6 +1,6 @@
 <?php class DB extends BasicSingle
 {
-	protected static $connection = false;
+	private static $connection = false;
 
 	public function __construct()
 	{
@@ -12,11 +12,16 @@
 		}
 	}
 
-	public static function query($str, $type = false)
+	public static function query($str, $type = null, $cache = false)
 	{
 		$array = array();
-		self::getInstance();
-		if ($result = self::$connection->query($str)) {
+		if ($cache && file_exists(DB_CACHE_PATH . md5($str) . '.php')) {
+			return unserialize(file_get_contents(DB_CACHE_PATH . md5($str) . '.php'));
+		} else {
+			self::getInstance();
+			$result = self::$connection->query($str);
+		}
+		if ($result) {
 			if ($result !== true && $result !== false) {
 				while ($array[] = $result->fetch_assoc()) {
 				}
@@ -25,7 +30,14 @@
 				$result->close();
 			} else $array = $result;
 		} else return false;
-//		self::$connection->close();
+//		self::$connection->close(); // to destruct
+		if ($cache) {
+			if (!file_exists(DB_CACHE_PATH)) {
+				// @todo RIGHTS!!!! HIDE IT!!!!
+			    mkdir(DB_CACHE_PATH, 0777, true);
+			}
+			file_put_contents(DB_CACHE_PATH . md5($str) . '.php', serialize($array));
+		}
 		return $array;
 	}
 
@@ -38,5 +50,10 @@
 		}
 		if (!$fields || !$values) return false;
 		return DB::query('INSERT INTO ' . $table . ' (' . implode(',', $fields) . ') VALUES ("' . implode('", "', $values) . '");');
+	}
+
+	public static function escape($str)
+	{
+		return htmlentities($str, ENT_QUOTES, 'UTF-8');
 	}
 }

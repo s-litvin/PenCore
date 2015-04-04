@@ -1,5 +1,6 @@
 <?php class AppUser
 {
+	const TABLE = 'users';
 	private static $_browsers = array(
 		'Opera' => 1,
 		'Chrome' => 2,
@@ -9,8 +10,35 @@
 		'Yandex' => 7
 	);
 
+	private $_info;
+
+	public function __construct($id_user = null)
+	{
+	}
+
+	public function find($username_or_id = null)
+	{
+		if ($username_or_id) {
+			$field = is_numeric($username_or_id) ? 'id' : 'email';
+			$q = 'SELECT *
+					FROM ' . self::TABLE . ' WHERE ' . $field . '="' . DB::escape($username_or_id) . '"';
+			if($result = DB::query($q, null, true)) {
+				$this->_info = $result;
+				return $result;
+			}
+		}
+		return false;
+	}
+
+	public function login($user_name = null, $pass = null)
+	{
+		if ($this->find($user_name)) {
+		}
+		return false;
+	}
+
 	private static $_unknow_browser = 6;
-	
+
 	public static function user($field = false)
 	{
 		if ($user = Session::get('user')) {
