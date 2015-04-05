@@ -15,4 +15,5 @@ if ($_SERVER['HTTP_HOST'] == 'pen.loc') {
 	define('DB_HOST', 'localhost');
 }
 
+
 require_once(CORE_PATH . 'core.php');
