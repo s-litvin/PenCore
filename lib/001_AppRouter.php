@@ -5,20 +5,23 @@
 		include_once('007_Includer.class.php');
 		Includer::inc_dir(CORE_PATH . 'lib/');
 		// @todo include only needed libs (отключать все и вести лог ошибок и автоматически создавать файл необходимых либ)
-		Includer::inc_dir(ROOTH_PATH . 'app/lib/helpers/');
-		Includer::inc_dir(ROOTH_PATH . 'app/lib/models/');
+		Includer::inc_dir(APP_PATH . 'app/lib/helpers/');
+		Includer::inc_dir(APP_PATH . 'app/lib/models/');
+
 
 		// controller/action/params
 //		preg_match('/^([^\\?]+)\\?(.+)/i', $path, $matches);
 		$path_array = explode('/', $path);
-		AppParams::$controller = $path_array[0] ? array_shift($path_array) : 'index';
-		AppParams::$action     = ($path_array[0] && !preg_match('/\..*$/', $path_array[0])) ? array_shift($path_array) : 'view';
-		AppParams::$controller_path = ROOTH_PATH . 'app/controllers/' . AppParams::$controller . AppParams::$controller_postfix;
+		$tmp = $path_array[0] ? array_shift($path_array) : 'index';
+		AppParams::setController($tmp);
+		$tmp = ($path_array[0] && !preg_match('/\..*$/', $path_array[0])) ? array_shift($path_array) : 'view';
+		AppParams::setAction($tmp);
+		AppParams::$controller_path = APP_PATH . 'app/controllers/' . AppParams::$controller . AppParams::$controller_postfix;
 
 		if (!is_file(AppParams::$controller_path)) {
-			AppParams::$action = 'nopage';
-			AppParams::$controller_path = FT::prepPath('app/controllers/redirect' . AppParams::$controller_postfix);
-			AppParams::$controller = 'redirect';
+			AppParams::setAction('nopage');
+			AppParams::setController('redirect');
+			AppParams::$controller_path = APP_PATH . 'app/controllers/' . AppParams::$controller . AppParams::$controller_postfix;
 		}
 
 		$params = $path_array; // остатки массива пойдут в качестве параметров
@@ -30,7 +33,7 @@
 			$controller_object = new AppParams::$controller();
 			AppUser::$_user = new AppUser();
 			if (!method_exists($controller_object, AppParams::$action)) {
-				AppParams::$action = 'view';
+				AppParams::setAction('view');
 			}
 			$result = $controller_object->{AppParams::$action}($params);
 			ob_start();

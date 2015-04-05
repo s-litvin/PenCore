@@ -21,7 +21,7 @@
 
 	static public $controller_path;
 	static public $controller;
-	static public $controller_postfix = 'controller.class.php';
+	static public $controller_postfix = 'Controller.class.php';
 
 	static public $action;
 
@@ -30,6 +30,14 @@
 		self::$$var = $val;
 	}
 
+	public static function setController($name)
+	{
+		self::$controller = ucfirst(strtolower($name));
+	}
 
+	public static function setAction($name)
+	{
+		self::$action = strtolower($name);
+	}
 
 }

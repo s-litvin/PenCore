@@ -9,7 +9,7 @@
 
 	public static function prepPath($str)
 	{
-		return ROOTH_PATH . $str;
+		return APP_PATH . $str;
 	}
 	public static function prepDate($timestamp, $format = 'mysql')
 	{
