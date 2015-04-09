@@ -64,7 +64,7 @@
 		return DB::insert(self::TABLE, array('name' => $data['name'],
 											 'email' => $data['email'],
 											 'pass' => $data['pass'],
-											 'ip' => $ip));
+											 'created_ip' => self::ip()));
 	}
 
 	private static $_unknow_browser = 6;
@@ -81,7 +81,7 @@
 	{
 		if (!empty($_SERVER['HTTP_CLIENT_IP'])) return $_SERVER['HTTP_CLIENT_IP'];
 		if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) return $_SERVER['HTTP_X_FORWARDED_FOR'];
-		return $ip=$_SERVER['REMOTE_ADDR'];
+		return $_SERVER['REMOTE_ADDR'];
 	}
 
 	public static function browser()

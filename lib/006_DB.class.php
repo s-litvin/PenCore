@@ -50,7 +50,8 @@
 			$values[] = $value;
 		}
 		if (!$fields || !$values) return false;
-		return DB::query('INSERT INTO ' . $table . ' (' . implode(',', $fields) . ') VALUES ("' . implode('", "', $values) . '");');
+		$q = 'INSERT INTO ' . $table . ' (' . implode(',', $fields) . ') VALUES ("' . implode('", "', $values) . '");';
+		return DB::query($q);
 	}
 
 	public static function escape($str)
