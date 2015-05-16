@@ -43,4 +43,10 @@
 		}
 		return date($format, $timestamp);
 	}
+
+	public static function prepOuthUrl($url)
+	{
+		if (strpos($url, 'http://') === false) return 'http://' . $url;
+		return $url;
+	}
 }
