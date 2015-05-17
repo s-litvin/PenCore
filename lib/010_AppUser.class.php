@@ -101,4 +101,14 @@
 	{
 		setcookie($name, $value , $lifetime);
 	}
+
+	public static function checkLogin()
+	{
+		if (!self::user('id')) header('Location:' . FT::prepUrl('login'));
+	}
+
+	public static function getPermissions()
+	{
+
+	}
 }
