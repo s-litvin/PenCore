@@ -11,17 +11,18 @@
 
 		// controller/action/params
 //		preg_match('/^([^\\?]+)\\?(.+)/i', $path, $matches);
+
+		$path = (strpos($path, '/') == 0) ? substr($path, 1) : $path;
 		$path_array = explode('/', $path);
 		$tmp = $path_array[0] ? array_shift($path_array) : 'index';
 		AppParams::setController($tmp);
 		$tmp = ($path_array[0] && !preg_match('/\..*$/', $path_array[0])) ? array_shift($path_array) : 'view';
 		AppParams::setAction($tmp);
-		AppParams::$controller_path = APP_PATH . 'app/controllers/' . AppParams::$controller . AppParams::$controller_postfix;
-
+		AppParams::$controller_path = APP_PATH . CTRL_PATH . AppParams::$controller . AppParams::$controller_postfix;
 		if (!is_file(AppParams::$controller_path)) {
 			AppParams::setAction('nopage');
 			AppParams::setController('redirect');
-			AppParams::$controller_path = APP_PATH . 'app/controllers/' . AppParams::$controller . AppParams::$controller_postfix;
+			AppParams::$controller_path = APP_PATH . CTRL_PATH . AppParams::$controller . AppParams::$controller_postfix;
 		}
 
 		$params = $path_array; // остатки массива пойдут в качестве параметров
